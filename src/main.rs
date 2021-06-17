@@ -6,7 +6,7 @@ fn main() {
     println!("{} {}", IMAGE_WIDTH, IMAGE_HEIGHT);
     println!("255");
 
-    for j in 0..IMAGE_HEIGHT {
+    for j in (0..IMAGE_HEIGHT).rev() {
         eprintln!("Scanlines remaining: {}", IMAGE_HEIGHT - j - 1);
         for i in 0..IMAGE_WIDTH {
             let r = (i as f64) / ((IMAGE_WIDTH - 1) as f64);
