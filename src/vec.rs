@@ -49,6 +49,12 @@ impl Vec3 {
         }
     }
 
+    // Return true if the vector is very close to zero in all dimensions
+    pub fn near_zero(self) -> bool {
+        const EPS: f64 = 1.0e-8;
+        self[0].abs() < EPS && self[1].abs() < EPS && self[2].abs() < EPS
+    }
+
     pub fn x(self) -> f64 {
         self[0]
     }
