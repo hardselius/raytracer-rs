@@ -1,4 +1,4 @@
-use rand::prelude::*;
+use rand::Rng;
 
 use super::hit::HitRecord;
 use super::ray::Ray;
@@ -83,6 +83,7 @@ impl Scatter for Dielectric {
         };
 
         let unit_direction = r_in.direction().normalized();
+
         let cos_theta = ((-1.0) * unit_direction).dot(rec.normal).min(1.0);
         let sin_theta = (1.0 - cos_theta.powi(2)).sqrt();
 
@@ -91,10 +92,8 @@ impl Scatter for Dielectric {
         let will_reflect = rng.gen::<f64>() < Self::reflectance(cos_theta, refraction_ratio);
 
         let direction = if cannot_refract || will_reflect {
-            // Must reflect
             unit_direction.reflect(rec.normal)
         } else {
-            // Can refract
             unit_direction.refract(rec.normal, refraction_ratio)
         };
 
