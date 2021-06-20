@@ -1,12 +1,12 @@
+use super::material::Scatter;
 use super::ray::Ray;
 use super::vec::{Point3, Vec3};
+use std::rc::Rc;
 
 pub struct HitRecord {
-    // TODO: What is p?
     pub p: Point3,
-    // TODO: What is normal?
     pub normal: Vec3,
-    // TODO: What is t?
+    pub mat: Rc<dyn Scatter>,
     pub t: f64,
     pub front_face: bool,
 }
