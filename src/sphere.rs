@@ -1,17 +1,18 @@
+use std::sync::Arc;
+
 use super::hit::{Hit, HitRecord};
 use super::material::Scatter;
 use super::ray::Ray;
 use super::vec::{Point3, Vec3};
-use std::rc::Rc;
 
 pub struct Sphere {
     center: Point3,
     radius: f64,
-    mat: Rc<dyn Scatter>,
+    mat: Arc<dyn Scatter>,
 }
 
 impl Sphere {
-    pub fn new(cen: Point3, r: f64, m: Rc<dyn Scatter>) -> Sphere {
+    pub fn new(cen: Point3, r: f64, m: Arc<dyn Scatter>) -> Sphere {
         Sphere {
             center: cen,
             radius: r,
@@ -28,12 +29,11 @@ impl Hit for Sphere {
         let c = oc.length().powi(2) - self.radius.powi(2);
 
         let discriminant = half_b.powi(2) - a * c;
-
         if discriminant < 0.0 {
             return None;
         }
 
-        // find the nearest root that lies in the acceptable range
+        // Find the nearest root that lies in the acceptable range
         let sqrtd = discriminant.sqrt();
         let mut root = (-half_b - sqrtd) / a;
         if root < t_min || t_max < root {

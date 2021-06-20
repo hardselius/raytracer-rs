@@ -29,6 +29,7 @@ impl Camera {
         let cw = (lookfrom - lookat).normalized();
         let cu = vup.cross(cw).normalized();
         let cv = cw.cross(cu);
+
         let h = focus_dist * viewport_width * cu;
         let v = focus_dist * viewport_height * cv;
 
