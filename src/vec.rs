@@ -55,6 +55,10 @@ impl Vec3 {
         self[0].abs() < EPS && self[1].abs() < EPS && self[2].abs() < EPS
     }
 
+    pub fn reflect(self, n: Vec3) -> Vec3 {
+        self - 2.0 * self.dot(n) * n
+    }
+
     pub fn x(self) -> f64 {
         self[0]
     }
