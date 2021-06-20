@@ -51,7 +51,8 @@ fn main() {
 
     let mut rng = rand::thread_rng();
     for j in (0..IMAGE_HEIGHT).rev() {
-        eprintln!("Scanlines remaining: {}", IMAGE_HEIGHT - j - 1);
+        eprintln!("Scanlines remaining: {}", j + 1);
+
         for i in 0..IMAGE_WIDTH {
             let mut pixel_color = Color::new(0.0, 0.0, 0.0);
             for _ in 0..SAMPLES_PER_PIXEL {
