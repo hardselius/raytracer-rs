@@ -39,6 +39,16 @@ impl Vec3 {
         }
     }
 
+    pub fn random_in_hemisphere(normal: Vec3) -> Vec3 {
+        let in_unit_sphere = Self::random_in_unit_sphere();
+        if in_unit_sphere.dot(normal) > 0.0 {
+            // In the same hemisphere as the normal
+            in_unit_sphere
+        } else {
+            in_unit_sphere * 1.0
+        }
+    }
+
     pub fn x(self) -> f64 {
         self[0]
     }
