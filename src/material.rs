@@ -53,3 +53,31 @@ impl Scatter for Metal {
         }
     }
 }
+
+pub struct Dielectric {
+    ir: f64,
+}
+
+impl Dielectric {
+    pub fn new(index_of_refraction: f64) -> Self {
+        Self {
+            ir: index_of_refraction,
+        }
+    }
+}
+
+impl Scatter for Dielectric {
+    fn scatter(&self, r_in: &Ray, rec: &HitRecord) -> Option<(Color, Ray)> {
+        let refraction_ration = if rec.front_face {
+            1.0 / self.ir
+        } else {
+            self.ir
+        };
+
+        let unit_direction = r_in.direction().normalized();
+        let refracted = unit_direction.refract(rec.normal, refraction_ration);
+        let scattered = Ray::new(rec.p, refracted);
+
+        Some((Color::new(1.0, 1.0, 1.0), scattered))
+    }
+}
